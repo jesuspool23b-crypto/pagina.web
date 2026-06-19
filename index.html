@@ -127,6 +127,8 @@
             font-weight: bold;
             font-size: 10pt;
             transition: background 0.3s;
+            cursor: pointer;
+            border: none;
         }
 
         .btn-primary:hover {
@@ -142,6 +144,8 @@
             font-weight: bold;
             font-size: 10pt;
             transition: background 0.3s;
+            cursor: pointer;
+            background-color: transparent;
         }
 
         .btn-secondary:hover {
@@ -173,6 +177,7 @@
             max-width: 260px;
             height: auto;
             margin-bottom: 15px;
+            border-radius: 8px;
         }
 
         .plantel-badge {
@@ -259,17 +264,20 @@
             border-radius: 8px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            aspect-ratio: 16/10;
         }
 
         .media-container img, .media-container video {
             width: 100%;
-            height: 250px;
+            height: 100%;
             object-fit: cover;
             display: block;
             transition: transform 0.3s;
         }
 
-        .media-container:hover img {
+        .media-container:hover img,
+        .media-container:hover video {
             transform: scale(1.03);
         }
 
@@ -311,6 +319,11 @@
         .info-item a {
             color: #00bcd4;
             text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-item a:hover {
+            color: #00acc1;
         }
 
         .form-group {
@@ -327,6 +340,7 @@
             color: #ffffff;
             font-size: 10pt;
             outline: none;
+            transition: border-color 0.3s;
         }
 
         .form-control::placeholder {
@@ -340,6 +354,7 @@
         textarea.form-control {
             height: 120px;
             resize: none;
+            font-family: inherit;
         }
 
         .btn-submit {
@@ -381,15 +396,6 @@
             background-color: rgba(255, 255, 255, 0.02);
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: #475569;
-            font-size: 9pt;
-            border-top: 1px solid rgba(255, 255, 255, 0.02);
-        }
-
         /* Audio Player Integrado */
         .audio-player {
             position: fixed;
@@ -403,6 +409,40 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .audio-label {
+            font-size: 8.5pt;
+            color: #00bcd4;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        audio {
+            height: 28px;
+            width: 140px;
+        }
+
+        /* Mensaje de éxito */
+        .success-message {
+            background-color: rgba(0, 188, 212, 0.2);
+            border: 1px solid #00bcd4;
+            color: #00bcd4;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #475569;
+            font-size: 9pt;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
         }
 
         @media (max-width: 768px) {
@@ -420,9 +460,21 @@
             }
             .btn-container {
                 justify-content: center;
+                flex-wrap: wrap;
             }
             nav {
                 display: none;
+            }
+            .audio-player {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 12px;
+            }
+            .audio-label {
+                display: none;
+            }
+            audio {
+                width: 100px;
             }
         }
     </style>
@@ -430,9 +482,9 @@
 <body>
 
     <div class="audio-player">
-        <span style="font-size: 8.5pt; color: #00bcd4; font-weight: bold;">🎵 Love, You Should've Come Over</span>
-        <audio id="bg-music" loop autoplay controls style="height: 28px; width: 140px;">
-            <source src="love_song.mp3" type="audio/mpeg">
+        <span class="audio-label">🎵 Love, You Should've Come Over</span>
+        <audio id="bg-music" controls>
+            <source src="assets/music/love_song.mp3" type="audio/mpeg">
             Tu navegador no soporta audio.
         </audio>
     </div>
@@ -461,7 +513,7 @@
         </div>
         <div class="hero-image-container">
             <div class="hero-card">
-                <img src="logo_plantel.jpg" alt="Plantel Cancún III Bonfil Logo">
+                <img src="assets/images/logo_plantel.jpg" alt="Plantel Cancún III Bonfil Logo" loading="lazy">
             </div>
             <div class="plantel-badge">
                 <div>Plantel Activo</div>
@@ -524,22 +576,28 @@
         
         <div class="grid-galeria">
             <div class="media-container">
-                <video src="feria_capacitaciones.mp4" controls></video>
+                <video controls poster="assets/images/feria_capacitaciones_thumbnail.jpg">
+                    <source src="assets/videos/feria_capacitaciones.mp4" type="video/mp4">
+                    Tu navegador no soporta videos HTML5.
+                </video>
             </div>
             <div class="media-container">
-                <video src="ecoarduino_demo.mp4" controls></video>
+                <video controls poster="assets/images/ecoarduino_demo_thumbnail.jpg">
+                    <source src="assets/videos/ecoarduino_demo.mp4" type="video/mp4">
+                    Tu navegador no soporta videos HTML5.
+                </video>
             </div>
             <div class="media-container">
-                <img src="evidencia_proyecto1.jpg" alt="Proyecto Ecoarduino">
+                <img src="assets/images/evidencia_proyecto1.jpg" alt="Proyecto Ecoarduino" loading="lazy">
             </div>
             <div class="media-container">
-                <img src="evidencia_proyecto2.jpg" alt="Mantenimiento y Laboratorio">
+                <img src="assets/images/evidencia_proyecto2.jpg" alt="Mantenimiento y Laboratorio" loading="lazy">
             </div>
             <div class="media-container">
-                <img src="evidencia_proyecto3.jpg" alt="Linces Bonfil">
+                <img src="assets/images/evidencia_proyecto3.jpg" alt="Linces Bonfil" loading="lazy">
             </div>
             <div class="media-container">
-                <img src="evidencia_proyecto4.jpg" alt="Feria de Capacitaciones Detalle">
+                <img src="assets/images/evidencia_proyecto4.jpg" alt="Feria de Capacitaciones Detalle" loading="lazy">
             </div>
         </div>
     </section>
@@ -558,15 +616,18 @@
                     🏫 Plantel: Colegio de Bachilleres Cancún Tres Bonfil
                 </div>
 
-                <form action="#" method="POST" onsubmit="event.preventDefault(); alert('¡Mensaje enviado con éxito!');">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Tu nombre" required>
+                <form id="contactForm">
+                    <div class="success-message" id="successMessage">
+                        ✅ ¡Mensaje enviado con éxito! Te responderemos pronto.
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Tu correo electrónico" required>
+                        <input type="text" class="form-control" placeholder="Tu nombre" name="nombre" required>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" placeholder="Tu mensaje..." required></textarea>
+                        <input type="email" class="form-control" placeholder="Tu correo electrónico" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Tu mensaje..." name="mensaje" required></textarea>
                     </div>
                     <button type="submit" class="btn-submit">Enviar mensaje</button>
                 </form>
@@ -583,12 +644,44 @@
     </footer>
 
     <script>
-        window.addEventListener('click', () => {
+        // Permitir reproducción de audio al hacer clic
+        document.addEventListener('click', () => {
             const audio = document.getElementById('bg-music');
-            if (audio.paused) {
-                audio.play().catch(e => console.log("El navegador requiere interacción previa."));
+            if (audio && audio.paused) {
+                audio.play().catch(e => {
+                    console.log("El navegador requiere interacción previa para autoplay.");
+                });
             }
         });
+
+        // Manejo del formulario de contacto
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Obtener datos del formulario
+                const nombre = document.querySelector('input[name="nombre"]').value;
+                const email = document.querySelector('input[name="email"]').value;
+                const mensaje = document.querySelector('textarea[name="mensaje"]').value;
+
+                // Aquí puedes enviar los datos a tu servidor
+                console.log('Datos del formulario:', { nombre, email, mensaje });
+
+                // Mostrar mensaje de éxito
+                successMessage.style.display = 'block';
+
+                // Limpiar formulario
+                contactForm.reset();
+
+                // Ocultar mensaje después de 5 segundos
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            });
+        }
     </script>
 </body>
 </html>
