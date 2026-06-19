@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capacitación TIC — Aprende haciendo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A1410;
+    --bg-elevated:#0E1C16;
+    --surface:#122620;
+    --surface-2:#163027;
+    --copper:#C77D4D;
+    --copper-bright:#E8A569;
+    --gold:#D9B45C;
+    --led:#5EE89C;
+    --led-soft:rgba(94,232,156,.18);
+    --ink:#EDEAE0;
+    --ink-dim:#9FB0A8;
+    --ink-faint:#5F7268;
+    --line:rgba(199,125,77,.22);
+    --line-soft:rgba(159,176,168,.14);
+    --radius:14px;
+    --display:"Space Grotesk",sans-serif;
+    --mono:"JetBrains Mono",monospace;
+    --body:"Inter",sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* subtle PCB substrate texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(199,125,77,0.07) 1px, transparent 1px);
+    background-size:28px 28px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  a{color:inherit; text-decoration:none;}
+  img{display:block; max-width:100%;}
+  section{position:relative; z-index:1;}
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  h1,h2,h3{font-family:var(--display); font-weight:600; letter-spacing:-0.01em; color:var(--ink);}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--copper-bright);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px; border-radius:50%;
+    background:var(--led);
+    box-shadow:0 0 8px 1px var(--led);
+  }
+
+  ::selection{background:var(--copper); color:#0A1410;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(14px) saturate(140%);
+    background:rgba(10,20,16,.78);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{
+    max-width:1180px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:700; font-size:18px;}
+  .brand .chip{
+    width:30px; height:30px; border-radius:6px;
+    border:1.5px solid var(--copper);
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(160deg, var(--surface-2), var(--surface));
+  }
+  .brand .chip svg{width:16px; height:16px;}
+  .nav-links{display:flex; gap:32px; align-items:center;}
+  .nav-links a{font-size:14.5px; color:var(--ink-dim); transition:color .2s;}
+  .nav-links a:hover{color:var(--led);}
+  .btn{
+    font-family:var(--body); font-weight:600; font-size:14px;
+    padding:11px 20px; border-radius:9px;
+    border:1px solid var(--copper);
+    background:transparent; color:var(--ink);
+    cursor:pointer; transition:all .2s;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn:hover{background:var(--copper); color:#0A1410;}
+  .btn-solid{
+    background:var(--led); border-color:var(--led); color:#082016; font-weight:700;
+  }
+  .btn-solid:hover{background:#7CF2B4; box-shadow:0 0 22px -2px var(--led-soft);}
+  .nav-cta{display:none;}
+  @media(min-width:760px){.nav-cta{display:inline-flex;}}
+  .nav-links{display:none;}
+  @media(min-width:880px){.nav-links{display:flex;}}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:88px 0 70px;}
+  .hero-grid{
+    display:grid; grid-template-columns:1fr; gap:54px; align-items:center;
+  }
+  @media(min-width:980px){.hero-grid{grid-template-columns:1.05fr 1fr;}}
+
+  .hero h1{
+    font-size:clamp(34px,5.2vw,54px);
+    line-height:1.06;
+    margin:18px 0 22px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--copper-bright);
+    position:relative;
+  }
+  .hero p.lead{
+    font-size:17px; color:var(--ink-dim); max-width:480px; margin-bottom:32px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:38px;}
+
+  .hero-meta{
+    display:flex; gap:28px; flex-wrap:wrap; font-family:var(--mono); font-size:12.5px; color:var(--ink-faint);
+  }
+  .hero-meta strong{display:block; font-family:var(--display); font-size:20px; color:var(--ink); font-weight:600;}
+
+  /* signature circuit diagram */
+  .circuit-wrap{position:relative;}
+  .circuit-wrap svg{width:100%; height:auto; overflow:visible;}
+  .trace{
+    fill:none; stroke:var(--copper); stroke-width:1.6; opacity:.55;
+    stroke-dasharray:6 5;
+    animation:flow 2.6s linear infinite;
+  }
+  .trace.b{animation-delay:-.4s;}
+  .trace.c{animation-delay:-.9s;}
+  .trace.d{animation-delay:-1.3s;}
+  .trace.e{animation-delay:-1.7s;}
+  .trace.f{animation-delay:-2.1s;}
+  .trace.g{animation-delay:-.6s;}
+  .trace.h{animation-delay:-1.9s;}
+  @keyframes flow{ to{ stroke-dashoffset:-110; } }
+  .node-dot{fill:var(--led); filter:drop-shadow(0 0 6px var(--led));}
+  .node-card{
+    fill:var(--surface); stroke:var(--line); stroke-width:1;
+  }
+  .node-label{font-family:var(--mono); font-size:9.5px; fill:var(--ink); letter-spacing:.04em;}
+  .node-pulse{
+    animation:pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:.35} 50%{opacity:1}}
+  .mcu-body{fill:var(--surface-2); stroke:var(--copper); stroke-width:1.4; rx:6;}
+  .mcu-text{font-family:var(--mono); font-size:11px; fill:var(--copper-bright); letter-spacing:.06em;}
+
+  @media (prefers-reduced-motion: reduce){
+    .trace, .node-pulse{animation:none !important;}
+  }
+
+  /* ---------- STATS ---------- */
+  .stats{
+    border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft);
+    padding:30px 0;
+  }
+  .stats-row{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:26px;
+  }
+  @media(min-width:760px){.stats-row{grid-template-columns:repeat(4,1fr);}}
+  .stat strong{
+    font-family:var(--display); font-size:30px; display:block; color:var(--ink);
+  }
+  .stat span{font-size:13px; color:var(--ink-dim);}
+
+  /* ---------- SECTION HEADS ---------- */
+  .sec-head{max-width:620px; margin-bottom:46px;}
+  .sec-head h2{font-size:clamp(26px,3.4vw,36px); margin-top:14px;}
+  .sec-head p{color:var(--ink-dim); margin-top:14px; font-size:15.5px;}
+
+  .section{padding:84px 0;}
+
+  /* ---------- LAB GALLERY ---------- */
+  .lab-grid{
+    display:grid; grid-template-columns:1fr; gap:22px;
+  }
+  @media(min-width:760px){.lab-grid{grid-template-columns:repeat(3,1fr);}}
+  .lab-card{
+    background:var(--surface);
+    border:1px solid var(--line-soft);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .lab-card:hover{transform:translateY(-4px); border-color:var(--copper);}
+  .lab-card .img-box{position:relative; aspect-ratio:4/3; overflow:hidden; background:#06100C;}
+  .lab-card img{width:100%; height:100%; object-fit:cover; display:block;}
+  .lab-card .tag{
+    position:absolute; top:12px; left:12px;
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.06em;
+    background:rgba(8,16,12,.78); color:var(--led);
+    padding:4px 9px; border-radius:5px; border:1px solid rgba(94,232,156,.3);
+  }
+  .lab-card .body{padding:20px 20px 22px;}
+  .lab-card h3{font-size:16.5px; margin-bottom:8px; font-family:var(--body); font-weight:700;}
+  .lab-card p{font-size:13.8px; color:var(--ink-dim);}
+
+  /* live demo widget */
+  .demo-card{
+    background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--radius);
+    padding:24px; margin-top:22px;
+    display:grid; grid-template-columns:1fr; gap:20px;
+  }
+  @media(min-width:680px){.demo-card{grid-template-columns:1fr auto auto; align-items:center;}}
+  .demo-title{font-family:var(--mono); font-size:12px; color:var(--ink-dim); letter-spacing:.06em; text-transform:uppercase;}
+  .demo-title b{display:block; font-family:var(--body); font-size:15px; color:var(--ink); text-transform:none; letter-spacing:0; margin-top:4px; font-weight:600;}
+  .gauge{
+    display:flex; align-items:baseline; gap:6px; font-family:var(--display);
+    background:var(--bg-elevated); border:1px solid var(--line); border-radius:10px;
+    padding:14px 20px; min-width:150px;
+  }
+  .gauge .val{font-size:30px; font-weight:600; color:var(--led); font-variant-numeric:tabular-nums;}
+  .gauge .unit{font-size:13px; color:var(--ink-faint);}
+  .gauge .lbl{display:block; font-family:var(--mono); font-size:10px; color:var(--ink-faint); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px;}
+
+  /* ---------- COURSES ---------- */
+  .course-grid{display:grid; grid-template-columns:1fr; gap:18px;}
+  @media(min-width:680px){.course-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(min-width:1040px){.course-grid{grid-template-columns:repeat(4,1fr);}}
+
+  .course-card{
+    background:var(--surface);
+    border:1px solid var(--line-soft);
+    border-radius:var(--radius);
+    padding:24px;
+    transition:transform .25s ease, border-color .25s ease, background .25s ease;
+    position:relative;
+    opacity:0; transform:translateY(16px);
+  }
+  .course-card.in{opacity:1; transform:none; transition:opacity .6s ease, transform .6s ease, border-color .25s, background .25s;}
+  .course-card:hover{border-color:var(--copper); background:var(--surface-2); transform:translateY(-3px);}
+
+  .course-icon{
+    width:46px; height:46px; border-radius:10px;
+    background:var(--bg-elevated); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px; color:var(--copper-bright);
+  }
+  .course-icon svg{width:24px; height:24px;}
+  .course-tag{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; color:var(--led);
+    text-transform:uppercase; margin-bottom:10px; display:block;
+  }
+  .course-card h3{font-size:17.5px; margin-bottom:10px; font-family:var(--body); font-weight:700; line-height:1.3;}
+  .course-card p{font-size:13.8px; color:var(--ink-dim); margin-bottom:14px;}
+  .course-meta{
+    font-family:var(--mono); font-size:11px; color:var(--ink-faint);
+    border-top:1px dashed var(--line-soft); padding-top:12px;
+  }
+
+  /* ---------- PROCESS ---------- */
+  .process{
+    background:var(--bg-elevated);
+    border-top:1px solid var(--line-soft);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .steps{
+    display:grid; grid-template-columns:1fr; gap:0; position:relative;
+  }
+  @media(min-width:860px){.steps{grid-template-columns:repeat(5,1fr);}}
+  .step{
+    padding:26px 20px; position:relative;
+    border-top:1px solid var(--line-soft);
+  }
+  @media(min-width:860px){
+    .step{border-top:none; border-left:1px solid var(--line-soft);}
+    .step:first-child{border-left:none;}
+  }
+  .step-num{font-family:var(--mono); font-size:12px; color:var(--copper-bright); margin-bottom:10px; display:block;}
+  .step h4{font-size:15px; font-family:var(--body); font-weight:700; margin-bottom:8px;}
+  .step p{font-size:13.2px; color:var(--ink-dim);}
+
+  /* ---------- CTA / FOOTER ---------- */
+  .cta-section{padding:90px 0 60px; text-align:center;}
+  .cta-section h2{font-size:clamp(26px,4vw,40px); max-width:680px; margin:16px auto 18px;}
+  .cta-section p{color:var(--ink-dim); max-width:520px; margin:0 auto 32px; font-size:15.5px;}
+  .cta-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+
+  footer{border-top:1px solid var(--line-soft); padding:36px 0; }
+  .footer-inner{
+    display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:space-between;
+    font-size:13px; color:var(--ink-faint);
+  }
+  .footer-inner .brand{font-size:15px;}
+  footer .fmono{font-family:var(--mono); font-size:11.5px;}
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <span class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="6" width="12" height="12" rx="1.5" stroke="#E8A569"/><path d="M9 6V3M15 6V3M9 21v-3M15 21v-3M6 9H3M6 15H3M21 9h-3M21 15h-3" stroke="#E8A569"/></svg>
+      </span>
+      Capacitación&nbsp;TIC
+    </div>
+    <nav class="nav-links">
+      <a href="#laboratorio">Laboratorio</a>
+      <a href="#cursos">Cursos</a>
+      <a href="#proceso">Cómo funciona</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a href="#contacto" class="btn btn-solid nav-cta">Inscríbete</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">TALLER ABIERTO · TECNOLOGÍAS DE LA INFORMACIÓN</span>
+      <h1>Deja de ver tutoriales.<br>Empieza a <em>cablear, programar<br>y construir</em> de verdad.</h1>
+      <p class="lead">Ocho especialidades prácticas para dominar las herramientas digitales que mueven cualquier oficina, taller o proyecto propio — desde un sensor en una breadboard hasta una hoja de cálculo que automatiza tu negocio.</p>
+      <div class="hero-actions">
+        <a href="#cursos" class="btn btn-solid">Ver las 8 especialidades</a>
+        <a href="#laboratorio" class="btn">Mirar el laboratorio ↓</a>
+      </div>
+      <div class="hero-meta">
+        <div><strong>8</strong>rutas de especialización</div>
+        <div><strong>100%</strong>aprendizaje práctico</div>
+        <div><strong>1</strong>proyecto real por curso</div>
+      </div>
+    </div>
+
+    <div class="circuit-wrap">
+      <svg viewBox="0 0 560 460" xmlns="http://www.w3.org/2000/svg">
+        <!-- traces from MCU to 8 nodes -->
+        <path class="trace a" d="M120 230 C 170 150, 220 120, 300 95"/>
+        <path class="trace b" d="M120 230 C 170 190, 230 175, 310 165"/>
+        <path class="trace c" d="M120 230 C 170 220, 240 222, 320 235"/>
+        <path class="trace d" d="M120 230 C 170 250, 230 270, 310 290"/>
+        <path class="trace e" d="M120 230 C 170 290, 220 330, 300 360"/>
+        <path class="trace f" d="M120 245 C 160 300, 190 340, 250 400"/>
+        <path class="trace g" d="M105 250 C 110 310, 100 350, 130 410"/>
+        <path class="trace h" d="M105 210 C 70 160, 60 110, 90 60"/>
+
+        <!-- central MCU -->
+        <rect class="mcu-body" x="64" y="196" width="72" height="68" rx="7"/>
+        <text class="mcu-text" x="100" y="226" text-anchor="middle">MCU</text>
+        <text class="mcu-text" x="100" y="242" text-anchor="middle" style="font-size:8.5px; fill:#9FB0A8;">U1</text>
+        <circle class="node-dot node-pulse" cx="100" cy="230" r="3.4"/>
+
+        <!-- nodes -->
+        <g>
+          <rect class="node-card" x="300" y="74" width="118" height="40" rx="6"/>
+          <circle class="node-dot node-pulse" cx="300" cy="94" r="3"/>
+          <text class="node-label" x="314" y="91">U1 · ARDUINO</text>
+          <text class="node-label" x="314" y="103" style="fill:#9FB0A8;">programación</text>
+        </g>
+        <g>
+          <rect class="node-card" x="310" y="146" width="118" height="40" rx="6"/>
+          <circle class="node-dot node-pulse" cx="310" cy="166" r="3"/>
+          <text class="node-label" x="324" y="163">Σ1 · CÁLCULO</text>
+          <text class="node-label" x="324" y="175" style="fill:#9FB0A8;">hojas de cálculo</text>
+        </g>
+        <g>
+          <rect class="node-card" x="320" y="215" width="124" height="40" rx="6"/>
+          <circle class="node-dot node-pulse" cx="320" cy="235" r="3"/>
+          <text class="node-label" x="334" y="232">LED1 · VISUAL</text>
+          <text class="node-label" x="334" y="244" style="fill:#9FB0A8;">diseño digital</text>
+        </g>
+        <g>
+          <rect class="node-card" x="310" y="270" width="128" height="40" rx="6"/>
+          <circle class="node-dot node-pulse" cx="310" cy="290" r="3"/>
+          <text class="node-label" x="324" y="287">ANT1 · ALCANCE</text>
+          <text class="node-label" x="324" y="299" style="fill:#9FB0A8;">redes sociales</text>
+        </g>
+        <g>
+          <rect class="node-card" x="300" y="340" width="118" height="40" rx="6"/>
+          <circle class="node-dot node-pulse" cx="300" cy="360" r="3"/>
+          <text class="node-label" x="314" y="357">J1 · CONEXIÓN</text>
+          <text class="node-label" x="314" y="369" style="fill:#9FB0A8;">instalación de redes</text>
+        </g>
+        <g>
+          <rect class="node-card" x="190" y="380" width="118" height="40" rx="6"/>
+          <circle class="node-dot node-pulse" cx="250" cy="400" r="3"/>
+          <text class="node-label" x="204" y="397">R1 · SOPORTE</text>
+          <text class="node-label" x="204" y="409" style="fill:#9FB0A8;">mantenimiento</text>
+        </g>
+        <g>
+          <rect class="node-card" x="74" y="392" width="118" height="40" rx="6"/>
+          <circle class="node-dot node-pulse" cx="130" cy="412" r="3"/>
+          <text class="node-label" x="88" y="409">SW1 · NAVEGAR</text>
+          <text class="node-label" x="88" y="421" style="fill:#9FB0A8;">páginas web</text>
+        </g>
+        <g>
+          <rect class="node-card" x="44" y="20" width="118" height="40" rx="6"/>
+          <circle class="node-dot node-pulse" cx="90" cy="60" r="3"/>
+          <text class="node-label" x="58" y="38">Q1 · DECISIÓN</text>
+          <text class="node-label" x="58" y="50" style="fill:#9FB0A8;">inteligencia artificial</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats">
+  <div class="wrap stats-row">
+    <div class="stat"><strong>8</strong><span>especialidades activas</span></div>
+    <div class="stat"><strong>0</strong><span>diapositivas memorizadas — todo se construye</span></div>
+    <div class="stat"><strong>1:1</strong><span>seguimiento por proyecto</span></div>
+    <div class="stat"><strong>∞</strong><span>veces que puedes romper tu circuito y volver a intentarlo</span></div>
+  </div>
+</section>
+
+<!-- ============ LABORATORIO ============ -->
+<section class="section" id="laboratorio">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">BITÁCORA DE LABORATORIO</span>
+      <h2>Así se ve una clase real de Arduino</h2>
+      <p>Estas fotos son de un montaje real hecho en taller: un Arduino Mega, una breadboard y un sensor DHT11, llevados paso a paso hasta una prueba de sensor de agua. Así se aprende electrónica aquí — con las manos, no solo con la vista.</p>
+    </div>
+
+    <div class="lab-grid">
+      <div class="lab-card">
+        <div class="img-box">
+          <img src="assets/5.jpeg" alt="Arduino Mega conectado a una breadboard con un sensor DHT11 mediante cables jumper">
+          <span class="tag">01 · MONTAJE</span>
+        </div>
+        <div class="body">
+          <h3>El cableado base</h3>
+          <p>Un Arduino Mega, alimentado por USB, entrega corriente y tierra a la breadboard. Tres jumpers — amarillo, gris y naranja — llevan señal, datos y alimentación hasta el sensor DHT11, el módulo azul que leerá temperatura y humedad del ambiente.</p>
+        </div>
+      </div>
+
+      <div class="lab-card">
+        <div class="img-box">
+          <img src="assets/6.jpeg" alt="Dos electrodos sumergidos en un vaso con agua conectados al circuito, con un LED rojo encendido bajo el agua">
+          <span class="tag">02 · SENSOR DE AGUA</span>
+        </div>
+        <div class="body">
+          <h3>La prueba del vaso con agua</h3>
+          <p>Dos varillas metálicas se sumergen en un vaso con agua. El agua cierra el circuito entre ellas, el Arduino mide esa conductividad y un LED rojo confirma la lectura — el mismo principio que usan los sensores de nivel y de humedad de suelo.</p>
+        </div>
+      </div>
+
+      <div class="lab-card">
+        <div class="img-box">
+          <img src="assets/7.jpeg" alt="Vista de cerca de las conexiones del sensor DHT11 en la breadboard junto a una resistencia">
+          <span class="tag">03 · DETALLE</span>
+        </div>
+        <div class="body">
+          <h3>Orden dentro del caos de cables</h3>
+          <p>De cerca se nota el método: cada color de jumper tiene un trabajo fijo, y una resistencia protege al LED de recibir más corriente de la que puede soportar. Pequeños hábitos que evitan horas de depuración después.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-card reveal" id="demoCard">
+      <div>
+        <span class="demo-title">SIMULACIÓN EN VIVO <b>Lo que el DHT11 estaría leyendo ahora mismo</b></span>
+      </div>
+      <div class="gauge"><div><span class="lbl">Temperatura</span><span class="val" id="tempVal">27.4</span><span class="unit">°C</span></div></div>
+      <div class="gauge"><div><span class="lbl">Humedad</span><span class="val" id="humVal">61</span><span class="unit">%</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LABORATORIO 2: MANTENIMIENTO ============ -->
+<section class="section" id="laboratorio-mantenimiento" style="padding-top:0;">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">BITÁCORA DE LABORATORIO · R1 MANTENIMIENTO</span>
+      <h2>Adentro de una torre de escritorio, en vivo</h2>
+      <p>Otra bitácora real, esta vez del curso de Mantenimiento de Equipos: abrir el gabinete, reconocer cada componente y dejar el cableado interno limpio y funcional — la base de cualquier diagnóstico o reparación.</p>
+    </div>
+
+    <div class="lab-grid">
+      <div class="lab-card">
+        <div class="img-box">
+          <img src="assets/equipo-1.jpeg" alt="Interior de un gabinete de computadora con tarjeta madre, fuente de poder KMEX y disco duro a la vista">
+          <span class="tag">04 · DIAGNÓSTICO</span>
+        </div>
+        <div class="body">
+          <h3>Reconocer cada pieza</h3>
+          <p>Gabinete abierto: tarjeta madre, procesador Intel con su disipador y ventilador, fuente de poder KMEX y un disco duro recostado sobre la tarjeta. Antes de tocar un solo cable, el primer paso siempre es identificar qué hace cada componente.</p>
+        </div>
+      </div>
+
+      <div class="lab-card">
+        <div class="img-box">
+          <img src="assets/equipo-2.jpeg" alt="Manos organizando y conectando los cables de la fuente de poder a la tarjeta madre y al disco duro">
+          <span class="tag">05 · CABLEADO</span>
+        </div>
+        <div class="body">
+          <h3>Ordenar la fuente de poder</h3>
+          <p>Las manos siguen cada cable de la fuente — los de alimentación a la tarjeta madre y el SATA que llega al disco duro verde — para confirmar que cada conector esté en su lugar antes de cerrar el gabinete. Un cableado ordenado es la diferencia entre un mantenimiento rápido y uno de varias horas.</p>
+        </div>
+      </div>
+
+      <div class="lab-card">
+        <div class="img-box" style="aspect-ratio:4/3;">
+          <video controls preload="metadata" poster="assets/equipo-video-poster.jpg" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <source src="assets/equipo-video.mp4" type="video/mp4">
+            Tu navegador no puede reproducir este video.
+          </video>
+          <span class="tag">06 · ENSAMBLE</span>
+        </div>
+        <div class="body">
+          <h3>Instalar el componente correcto, en el lugar correcto</h3>
+          <p>Video del montaje: una tarjeta se inserta con cuidado en su ranura dentro del gabinete, mientras la otra mano sostiene el chasis firme. Es el mismo gesto, una y otra vez, el que hace que un equipo arme bien — sin forzar nada y revisando antes de soltar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CURSOS ============ -->
+<section class="section" id="cursos" style="padding-top:0;">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">EL CIRCUITO COMPLETO</span>
+      <h2>Ocho especialidades, una sola lógica: hacer</h2>
+      <p>Cada curso está pensado como un componente con un trabajo claro. Tómalos por separado o combínalos — igual que en un circuito real, juntos rinden más.</p>
+    </div>
+
+    <div class="course-grid" id="courseGrid">
+
+      <article class="course-card">
+        <div class="course-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9 6V3M15 6V3M9 21v-3M15 21v-3M6 9H3M6 15H3M21 9h-3M21 15h-3"/></svg>
+        </div>
+        <span class="course-tag">U1 · Microcontrolador</span>
+        <h3>Programación de Arduino</h3>
+        <p>Aprende a programar microcontroladores y crear proyectos electrónicos interactivos: enciende tu primer LED, lee sensores y controla motores con tu propio código.</p>
+        <div class="course-meta">Proyecto final: sensor de tu elección, como los de la bitácora arriba.</div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4v16M15 4v16M4 9h16M4 15h16" opacity="0"/><path d="M4 7h6v6H4z"/><path d="M14 7h6v10h-6z"/></svg>
+        </div>
+        <span class="course-tag">Σ1 · Almacenamiento de datos</span>
+        <h3>Hojas de Cálculo</h3>
+        <p>Domina Excel, análisis de datos, gráficos avanzados y automatización de procesos: de la fórmula básica a la macro que te ahorra una tarde entera de trabajo.</p>
+        <div class="course-meta">Proyecto final: un reporte automatizado para tu propio negocio o estudio.</div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 7 14h4l-1 7 6-11h-4l1-7z" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="course-tag">LED1 · Salida visual</span>
+        <h3>Diseño Digital</h3>
+        <p>Crea gráficos, diseños web y contenido visual profesional con herramientas modernas, desde identidad de marca hasta piezas listas para redes e impresión.</p>
+        <div class="course-meta">Proyecto final: kit visual completo para una marca propia o ficticia.</div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.5-9.3-11A5.3 5.3 0 0 1 12 5.5 5.3 5.3 0 0 1 21.3 10c-2.3 4.5-9.3 11-9.3 11z" opacity="0"/><path d="M12 19c-4 0-4-7 0-7M8 16c2-1 2-5 0-9M16 16c-2-1-2-5 0-9M4 13c3 0 3-6 0-9M20 13c-3 0-3-6 0-9" stroke-linecap="round"/></svg>
+        </div>
+        <span class="course-tag">ANT1 · Transmisión</span>
+        <h3>Gestión de Redes Sociales</h3>
+        <p>Desarrolla estrategias de marketing digital y administra contenido de forma profesional: calendarios, métricas reales y una voz de marca consistente.</p>
+        <div class="course-meta">Proyecto final: un mes de contenido planeado y medido para una cuenta real.</div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 12h4M12 12l4-5M12 12l4 5"/></svg>
+        </div>
+        <span class="course-tag">J1 · Punto de conexión</span>
+        <h3>Instalación de Redes</h3>
+        <p>Aprende fundamentos de redes de computadoras, configuración y administración: cableado estructurado, routers, switches y direcciones IP sin misterio.</p>
+        <div class="course-meta">Proyecto final: una red pequeña funcionando de extremo a extremo.</div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h2l1.5-4 3 8 2-6 1.5 2H19" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="course-tag">R1 · Regulación</span>
+        <h3>Mantenimiento de Equipos</h3>
+        <p>Domina diagnóstico, reparación y mantenimiento preventivo de computadoras: limpieza, cambio de componentes y solución de fallas comunes, paso a paso.</p>
+        <div class="course-meta">Proyecto final: un equipo real, diagnosticado y reparado por ti — como en la <a href="#laboratorio-mantenimiento" style="color:var(--led); text-decoration:underline;">bitácora de arriba</a>.</div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="2.4"/><circle cx="7" cy="17" r="2.4"/><path d="M9.4 7H14a4 4 0 0 1 4 4v0a4 4 0 0 1-4 4H9.4"/></svg>
+        </div>
+        <span class="course-tag">SW1 · Bifurcación</span>
+        <h3>Diseño de Páginas Web</h3>
+        <p>Crea sitios web responsivos usando HTML, CSS, JavaScript y frameworks modernos: de una landing page sencilla a un sitio interactivo completo.</p>
+        <div class="course-meta">Proyecto final: tu propio sitio web, publicado y funcionando.</div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        </div>
+        <span class="course-tag">Q1 · Amplificación</span>
+        <h3>Inteligencia Artificial</h3>
+        <p>Explora el mundo de la IA, machine learning y herramientas de IA en diferentes campos: cómo usarlas a tu favor en trabajo, estudio y proyectos personales.</p>
+        <div class="course-meta">Proyecto final: un flujo de trabajo propio asistido por IA.</div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESO ============ -->
+<section class="process" id="proceso">
+  <div class="wrap section">
+    <div class="sec-head">
+      <span class="eyebrow">DE LA INSCRIPCIÓN AL CERTIFICADO</span>
+      <h2>Cómo funciona, en orden real</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <h4>Diagnóstico</h4>
+        <p>Hablamos de tus metas y tu nivel actual para no perder tiempo en lo que ya sabes.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <h4>Eliges tu ruta</h4>
+        <p>Una especialidad o varias combinadas, según lo que quieras construir.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <h4>Talleres prácticos</h4>
+        <p>Cada sesión termina con algo que funciona — un circuito, un archivo, un sitio.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <h4>Proyecto final</h4>
+        <p>Documentas y presentas tu propio proyecto, como los de la bitácora de laboratorio.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">05</span>
+        <h4>Certificación</h4>
+        <p>Sales con certificado y un portafolio real para mostrar lo que sabes hacer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta-section" id="contacto">
+  <div class="wrap">
+    <span class="eyebrow" style="justify-content:center;">CIERRA EL CIRCUITO</span>
+    <h2>Tu próximo proyecto empieza con una sola conexión.</h2>
+    <p>Escríbenos y te ayudamos a elegir la especialidad correcta para donde quieres llegar.</p>
+    <div class="cta-actions">
+      <a href="mailto:contacto@capacitaciontic.mx" class="btn btn-solid">Escríbenos por correo</a>
+      <a href="#cursos" class="btn">Revisar especialidades</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="brand">Capacitación TIC</div>
+    <div class="fmono">Cancún, Quintana Roo, MX</div>
+    <div>© 2026 Capacitación TIC. Aprende haciendo.</div>
+  </div>
+</footer>
+
+<script>
+  // scroll reveal for course cards and demo card
+  const revealEls = document.querySelectorAll('.course-card, .reveal');
+  revealEls.forEach(el => el.classList.add(el.classList.contains('course-card') ? '' : ''));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:.15});
+  document.querySelectorAll('.course-card, .reveal').forEach(el => io.observe(el));
+
+  // live DHT11-style simulated readings
+  const tempEl = document.getElementById('tempVal');
+  const humEl = document.getElementById('humVal');
+  let temp = 27.4, hum = 61;
+  function tick(){
+    temp += (Math.random() - 0.5) * 0.6;
+    hum += (Math.random() - 0.5) * 2.2;
+    temp = Math.min(31, Math.max(24, temp));
+    hum = Math.min(75, Math.max(48, hum));
+    tempEl.textContent = temp.toFixed(1);
+    humEl.textContent = Math.round(hum);
+  }
+  setInterval(tick, 1800);
+</script>
+
+</body>
+</html>
