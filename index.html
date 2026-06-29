@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TICs Bonfil · Plantel Cancún 3</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #070b13;
+            color: #ffffff;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        header {
+            background-color: rgba(7, 11, 19, 0.95);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 16pt;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #00bcd4;
+        }
+
+        nav a {
+            color: #a0a5b5;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 10.5pt;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+        }
+
+        /* Secciones */
+        section {
+            padding: 100px 20px 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Inicio / Hero Section */
+        #inicio {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 90vh;
+            padding-top: 140px;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 40px;
+        }
+
+        .badge {
+            background-color: rgba(0, 188, 212, 0.1);
+            color: #00bcd4;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 9pt;
+            font-weight: bold;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 188, 212, 0.2);
+        }
+
+        .hero-text h1 {
+            font-size: 36pt;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(45deg, #00b4d8, #9d4edf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            color: #94a3b8;
+            font-size: 11pt;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            max-width: 500px;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background-color: #00bcd4;
+            color: #070b13;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 10pt;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #00acc1;
+        }
+
+        .btn-secondary {
+            border: 1px solid #1e293b;
+            color: #00bcd4;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 10pt;
+            transition: background 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .hero-image-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-card {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .hero-card img {
+            width: 80%;
+            max-width: 260px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .plantel-badge {
+            margin-top: 20px;
+            background-color: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(0, 188, 212, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 9.5pt;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .plantel-badge div {
+            font-size: 8pt;
+            color: #64748b;
+        }
+
+        .plantel-badge span {
+            color: #00bcd4;
+            font-weight: bold;
+        }
+
+        /* Actividades */
+        .section-title {
+            font-size: 24pt;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+            font-size: 11pt;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .grid-actividades {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card-actividad {
+            background-color: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.3s, border 0.3s;
+        }
+
+        .card-actividad:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 188, 212, 0.2);
+        }
+
+        .card-icon {
+            font-size: 20pt;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .card-actividad h3 {
+            font-size: 12pt;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .card-actividad p {
+            color: #9ca3af;
+            font-size: 9.5pt;
+            line-height: 1.5;
+        }
+
+        /* Galería */
+        .grid-galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .media-container {
+            background-color: #111827;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .media-container img,
+        .media-container video {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .media-container:hover img {
+            transform: scale(1.03);
+        }
+
+        /* YouTube Shorts embed */
+        .yt-container {
+            background-color: #111827;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .yt-container iframe {
+            width: 100%;
+            height: 480px;
+            display: block;
+            border: none;
+        }
+
+        .yt-label {
+            padding: 10px 14px;
+            font-size: 9pt;
+            color: #94a3b8;
+            background-color: #0d1321;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .yt-label span {
+            color: #ff4444;
+            font-size: 11pt;
+        }
+
+        /* Contacto */
+        .contacto-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .contacto-card {
+            background-color: #0b0f19;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 550px;
+            text-align: center;
+        }
+
+        .contacto-card h2 {
+            font-size: 26pt;
+            margin-bottom: 10px;
+        }
+
+        .contacto-card p {
+            color: #64748b;
+            font-size: 10.5pt;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            margin-bottom: 12px;
+            font-size: 10pt;
+            color: #94a3b8;
+        }
+
+        .info-item a {
+            color: #00bcd4;
+            text-decoration: none;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: #111723;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 14px;
+            color: #ffffff;
+            font-size: 10pt;
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: #475569;
+        }
+
+        .form-control:focus {
+            border-color: #00bcd4;
+        }
+
+        textarea.form-control {
+            height: 120px;
+            resize: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #00bcd4;
+            color: #070b13;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 10pt;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #00acc1;
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            border: 1px solid #1e293b;
+            background-color: transparent;
+            color: #00bcd4;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 10pt;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #475569;
+            font-size: 9pt;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        /* Audio Player Integrado */
+        .audio-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.9);
+            padding: 10px 15px;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 188, 212, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            #inicio {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+            }
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            .hero-text p {
+                margin: 0 auto 35px auto;
+            }
+            .btn-container {
+                justify-content: center;
+            }
+            nav {
+                display: none;
+            }
+            .yt-container iframe {
+                height: 380px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="audio-player">
+        <span style="font-size: 8.5pt; color: #00bcd4; font-weight: bold;">🎵 Love, You Should've Come Over</span>
+        <audio id="bg-music" loop autoplay controls style="height: 28px; width: 140px;">
+            <source src="love_song.mp3" type="audio/mpeg">
+            Tu navegador no soporta audio.
+        </audio>
+    </div>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo"><span>TICs</span> Bonfil · Plantel Cancún 3</div>
+            <nav>
+                <a href="#inicio">Inicio</a>
+                <a href="#actividades">Actividades</a>
+                <a href="#galeria">Galería</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="inicio">
+        <div class="hero-text">
+            <div class="badge">COBAQROO · CAPACITACIÓN TICS 2026</div>
+            <h1>Más tecnología,<br><span>más posibilidades.</span></h1>
+            <p>Capacitación en Tecnologías de la Información y Comunicación para estudiantes del Colegio de Bachilleres del plantel Cancún Tres Bonfil.</p>
+            <div class="btn-container">
+                <a href="#actividades" class="btn-primary">Ver actividades</a>
+                <a href="#contacto" class="btn-secondary">Contáctanos</a>
+            </div>
+        </div>
+        <div class="hero-image-container">
+            <div class="hero-card">
+                <img src="logo_plantel.jpg" alt="Plantel Cancún III Bonfil Logo">
+            </div>
+            <div class="plantel-badge">
+                <div>Plantel Activo</div>
+                <span>Cancún 3 Bonfil</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="actividades">
+        <h2 class="section-title">Actividades de la Capacitación</h2>
+        <p class="section-subtitle">Habilidades digitales indispensables para el desarrollo académico y profesional futuro.</p>
+        
+        <div class="grid-actividades">
+            <div class="card-actividad">
+                <span class="card-icon">⚡</span>
+                <h3>Programación de Arduino</h3>
+                <p>Aprende a programar microcontroladores y crear proyectos electrónicos interactivos.</p>
+            </div>
+            <div class="card-actividad">
+                <span class="card-icon">📊</span>
+                <h3>Hojas de Cálculo</h3>
+                <p>Domina Excel, análisis de datos, gráficos avanzados y automatización de procesos.</p>
+            </div>
+            <div class="card-actividad">
+                <span class="card-icon">🎨</span>
+                <h3>Diseño Digital</h3>
+                <p>Crea gráficos, diseños web y contenido visual profesional con herramientas modernas.</p>
+            </div>
+            <div class="card-actividad">
+                <span class="card-icon">📱</span>
+                <h3>Gestión de Redes Sociales</h3>
+                <p>Estrategias de marketing digital y administración de contenido profesional.</p>
+            </div>
+            <div class="card-actividad">
+                <span class="card-icon">🌐</span>
+                <h3>Instalación de Redes</h3>
+                <p>Fundamentos de redes de computadoras, configuración y administración.</p>
+            </div>
+            <div class="card-actividad">
+                <span class="card-icon">💻</span>
+                <h3>Mantenimiento de Equipos</h3>
+                <p>Diagnóstico, reparación y mantenimiento preventivo de computadoras.</p>
+            </div>
+            <div class="card-actividad">
+                <span class="card-icon">🖥️</span>
+                <h3>Diseño de Páginas Web</h3>
+                <p>Crea sitios web responsivos usando HTML, CSS, JavaScript y frameworks modernos.</p>
+            </div>
+            <div class="card-actividad">
+                <span class="card-icon">🤖</span>
+                <h3>Inteligencia Artificial</h3>
+                <p>Explora el mundo de la IA, machine learning y herramientas de IA aplicadas.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria">
+        <h2 class="section-title">Galería de Evidencias</h2>
+        <p class="section-subtitle">Explora los videos explicativos y fotografías capturadas en los laboratorios.</p>
+        
+        <div class="grid-galeria">
+
+            <!-- Videos locales originales -->
+            <div class="media-container">
+                <video src="video_feria.mp4" controls></video>
+            </div>
+            <div class="media-container">
+                <video src="video_ecoarduino.mp4" controls></video>
+            </div>
+
+            <!-- YouTube Shorts embebidos -->
+            <div class="yt-container">
+                <iframe
+                    src="https://www.youtube.com/embed/UR1V-xnzZe0"
+                    title="Aire comprimido"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+                <div class="yt-label"><span>▶</span> Aire comprimido</div>
+            </div>
+
+            <div class="yt-container">
+                <iframe
+                    src="https://www.youtube.com/embed/Rxhy4Ftqg2w"
+                    title="Limpieza del equipo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+                <div class="yt-label"><span>▶</span> Limpieza del equipo</div>
+            </div>
+
+            <div class="yt-container">
+                <iframe
+                    src="https://www.youtube.com/embed/hDWETZBKhUw"
+                    title="Limpieza de PC"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+                <div class="yt-label"><span>▶</span> Limpieza de PC</div>
+            </div>
+
+            <div class="yt-container">
+                <iframe
+                    src="https://www.youtube.com/embed/fZHOjHcLvFM"
+                    title="Desinstalación"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+                <div class="yt-label"><span>▶</span> Desinstalación</div>
+            </div>
+
+            <div class="yt-container">
+                <iframe
+                    src="https://www.youtube.com/embed/ijv-4o4lBpI"
+                    title="Video de mantenimiento"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+                <div class="yt-label"><span>▶</span> Mantenimiento de equipos</div>
+            </div>
+
+            <!-- Imágenes originales -->
+            <div class="media-container">
+                <img src="mantenimiento1.jpeg" alt="Evidencia de mantenimiento de equipos 1">
+            </div>
+            <div class="media-container">
+                <img src="mantenimiento2.jpeg" alt="Evidencia de mantenimiento de equipos 2">
+            </div>
+            <div class="media-container">
+                <img src="mantenimiento3.jpeg" alt="Evidencia de mantenimiento de equipos 3">
+            </div>
+            <div class="media-container">
+                <img src="mantenimiento4.jpeg" alt="Evidencia de mantenimiento de equipos 4">
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="contacto-wrapper">
+            <div class="contacto-card">
+                <p style="color: #00bcd4; font-size: 9pt; font-weight: bold; margin-bottom: 5px; text-transform: uppercase;">Escríbenos</p>
+                <h2>¡Contáctanos!</h2>
+                <p>¿Preguntas o quieres unirte? Nos encantaría escucharte.</p>
+                
+                <div class="info-item">
+                    📩 Correo: <a href="mailto:jesuspool23b@cancuntresbonfil.edu.mx">jesuspool23b@cancuntresbonfil.edu.mx</a>
+                </div>
+                <div class="info-item" style="margin-bottom: 25px;">
+                    🏫 Plantel: Colegio de Bachilleres Cancún Tres Bonfil
+                </div>
+
+                <form action="#" method="POST" onsubmit="event.preventDefault(); alert('¡Mensaje enviado con éxito!');">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Tu correo electrónico" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Tu mensaje..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Enviar mensaje</button>
+                </form>
+
+                <a href="https://wa.me/#" target="_blank" class="btn-whatsapp">
+                    💬 Escríbenos por WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Capacitación de TICs - Plantel Cancún 3 Bonfil. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('click', () => {
+            const audio = document.getElementById('bg-music');
+            if (audio.paused) {
+                audio.play().catch(e => console.log("Interacción requerida por el navegador."));
+            }
+        });
+    </script>
+</body>
+</html>
